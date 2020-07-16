@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>글 수정하기</h1> <!-- edit 페이지니까 글 수정하기로 변경 -->
+    <form action="{% url 'posts:update' post.pk %}" method="POST"> <!-- update 기능이니까 url 이름도 update로 해줍시다. -->
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">글 제목</label>
+            <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해주세요." value="{{ post.title }}" required> <!-- value 속성 추가 -->
+        </div>
+        <div class="form-group">
+            <label for="content">글 내용</label>
+            <textarea class="form-control" name="content" id="content" placeholder="내용을 입력해 주세요...">{{ post.content }}</textarea> <!-- 글 내용 추가 -->
+        </div>
+        <input type="submit" value="글 수정" class="btn btn-outline-primary"> <!-- 수정으로 버튼 변경 -->
+    </form>
+</div>
+{% endblock %}

@@ -7,5 +7,8 @@
     <h3>글 제목 : {{ post.title }}</h3>
     <h3>글 내용 : {{ post.content }}</h3>
     <h3>작성 시각 : {{ post.created_at }}</h3>
+    <h3>수정 시각 : {{ post.updated_at }}</h3>
+    <a href="{% url 'posts:update' post.pk %}" class="btn btn-primary">수정</a>
+    <a href="{% url 'posts:delete' post.pk %}" class="btn btn-danger">삭제</a>
 </div>
 {% endblock %}
