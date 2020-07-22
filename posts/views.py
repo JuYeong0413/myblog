@@ -11,7 +11,8 @@ def create(request):
     if request.method == "POST":
         title = request.POST.get('title')
         content = request.POST.get('content')
-        Post.objects.create(title=title, content=content)
+        image = request.FILES.get('image')
+        Post.objects.create(title=title, content=content, image=image)
     return redirect('posts:main')
 
 
@@ -31,6 +32,7 @@ def update(request, post_id):
         # pdb.set_trace()
         post.title = request.POST['title']
         post.content = request.POST['content']
+        post.image = request.FILES.get('image')
         post.save()
         return redirect('posts:show', post.id)
     return render(request, 'posts/edit.html', {"post": post})
