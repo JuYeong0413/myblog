@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
-import pdb
 
 # Create your views here.
 def new(request):
@@ -24,13 +23,14 @@ def main(request):
 
 def show(request, post_id):
     post = Post.objects.get(pk=post_id)
+    post.view_count += 1
+    post.save()
     return render(request, 'posts/show.html', {'post': post})
 
 
 def update(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     if request.method == "POST":
-        # pdb.set_trace()
         post.title = request.POST['title']
         post.content = request.POST['content']
         post.image = request.FILES.get('image')
