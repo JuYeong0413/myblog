@@ -6,7 +6,11 @@
     <h1>글 #{{ post.id }} 상세보기</h1>
     <h3>글 제목 : {{ post.title }}</h3>
     {% if post.writer %}
+        {% if post.writer.username == 'user' %}
+        <h3>작성자 : {{ post.writer.last_name }} {{ post.writer.first_name }}</h3>
+        {% else %}
         <h3>작성자 : {{ post.writer }}</h3>
+        {% endif %}
     {% else %}
         <h3>작성자 : 알 수 없음</h3>
     {% endif %}
