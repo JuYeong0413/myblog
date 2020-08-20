@@ -17,7 +17,7 @@ def create(request):
 
 
 def main(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-created_at')
     return render(request, 'posts/main.html', {'posts': posts})
 
 
@@ -52,4 +52,4 @@ def create_comment(request, post_id):
         current_user = request.user
         comment_content = request.POST.get('content')
         Comment.objects.create(content=comment_content, writer=current_user, post=post)
-    return redirect('posts:show', post.pk)
+    return redirect('posts:show', post_id)
