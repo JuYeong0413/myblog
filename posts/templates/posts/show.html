@@ -6,7 +6,11 @@
     <h1>글 #{{ post.id }} 상세보기</h1>
     <h3>글 제목 : {{ post.title }}</h3>
     {% if post.writer %}
+        {% if post.writer.username == 'user' %}
+        <h3>작성자 : {{ post.writer.last_name }} {{ post.writer.first_name }}</h3>
+        {% else %}
         <h3>작성자 : {{ post.writer }}</h3>
+        {% endif %}
     {% else %}
         <h3>작성자 : 알 수 없음</h3>
     {% endif %}
@@ -22,5 +26,22 @@
         <a href="{% url 'posts:update' post.pk %}" class="btn btn-primary">수정</a>
         <a href="{% url 'posts:delete' post.pk %}" class="btn btn-danger">삭제</a>
     {% endif %}
+</div>
+<div class="container mt-5">
+    <form class="form-row" action="{% url 'posts:create_comment' post.id %}" method="POST">
+        {% csrf_token %}
+        <textarea class="form-control col-11 mr-2" name="content" placeholder="댓글 내용 입력..."></textarea>
+        <input type="submit" class="btn btn-primary" value="확인">
+    </form>
+</div>
+<div class="container mt-5 mb-5">
+    {% for comment in comments %}
+    <div class="card">
+        <div class="card-body">
+            <b>{{ comment.writer }}</b> : {{ comment.content }}<br>
+            <small>{{ comment.created_at }}</small>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}
